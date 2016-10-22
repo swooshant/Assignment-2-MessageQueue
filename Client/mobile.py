@@ -11,7 +11,7 @@ from argparse import ArgumentParser
 def main(opt_args):
     # Setup some bluetooth stuff
     bridgeMAC = 'B8:27:EB:39:1B:2A'
-    bridgePort = 3
+    bridgePort = 25
     bridgeSocket = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
     bridgeSocket.connect((bridgeMAC, bridgePort))
 
