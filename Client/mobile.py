@@ -1,13 +1,21 @@
 #!/usr/bin/python3
 
 import json
+import pymongo
 import sys
 import time
 
 from argparse import ArgumentParser
 
 def main(opt_args):
+    # Initialize DB related stuff
+    client = pymongo.MongoClient('mongodb://localhost:27017/')
+    db = client.repository
+    collection = db.messages
+
+    # Create a dict to represetnt the message to be sent over bluetooth
     MsgInst = {}
+
     # Check some info about the command and build a dictionary for a given action
     if opt_args.action == 'push':
         MsgInst['Action'] = opt_args.action
@@ -32,9 +40,8 @@ def main(opt_args):
         if opt_args.message is not None:
             MsgInst['Message'] = opt_args.message
 
-    # Conver the MsgInst dictionary into a json payload to be sent to the bridge
-    MsgInstJson = json.dumps(MsgInst)
-    print(MsgInstJson)
+    # Insert the message we'll be sending into the database
+    result = collection.insert_one(MsgInst)
     
     
 if __name__ == "__main__":
