@@ -13,5 +13,6 @@ if __name__ == '__main__':
     zeroconf = Zeroconf()
     print("\nBrowsing services, press Ctrl-C to exit...\n")
     info = zeroconf.get_service_info("_amqp._tcp.local.", "rabbitmq._amqp._tcp.local.")
+    print(info)
 
     zeroconf.close()
