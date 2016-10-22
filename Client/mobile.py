@@ -66,7 +66,7 @@ def main(opt_args):
         responseData = json.loads(response)
         for item in responseData:
             for key, value in item.iteritems():
-                print key, value
+                print(key, value)
         bridgeSocket.close()
     else:
         bridgeSocket.close()
