@@ -10,9 +10,9 @@ if __name__ == '__main__':
     desc = {'queue_name': 'myQueue'}
 
     info = ServiceInfo("_amqp._tcp.local.",
-                       "repository._amqp._tcp.local.",
+                       "rabbitmq._amqp._tcp.local.",
                        socket.inet_aton("127.0.0.1"), 5672, 0, 0,
-                       desc, "repository.local")
+                       desc, "rabbitmq-server.local.")
 
     zeroconf = Zeroconf()
     print("Registration of a service, press Ctrl-C to exit...")

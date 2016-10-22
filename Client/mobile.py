@@ -9,6 +9,7 @@ import time
 from argparse import ArgumentParser
 
 def main(opt_args):
+    size = 4096
     # Setup some bluetooth stuff
     bridgeMAC = 'B8:27:EB:39:1B:2A'
     bridgePort = 25
@@ -38,6 +39,7 @@ def main(opt_args):
             payload['Message'] = opt_args.message
     else:
         payload['Action'] = opt_args.action
+        payload['MsgID'] = "16" + "$" + str(time.time())
         # Check which fields have been set for the 'pull' action
         # Make them local variables if they're set 
         if opt_args.subject is None and opt_args.message is None:
@@ -57,7 +59,17 @@ def main(opt_args):
 
     # Send json message to the bridge
     bridgeSocket.send(bytes(payloadJSON, 'UTF-8'))
-    bridgeSocket.close()
+
+    # If the command was a pull, recieve a response from the bridge
+    if payload['Action'] == 'pull':
+        response = bridgeSocket.recv(size)
+        responseData = json.loads(response)
+        for item in responseData:
+            for key, value in item.iteritems():
+                print key, value
+        bridgeSocket.close()
+    else:
+        bridgeSocket.close()
         
 if __name__ == "__main__":
     parser = ArgumentParser(description='Parse options for the Message Repository')
