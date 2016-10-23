@@ -19,6 +19,19 @@ def on_request(ch, method, props, body):
     print(data)
     if data['Action'] == 'pull':
         print("pulling")
+	if data['Subject'] is not None
+		subject = data['Subject']
+		if data['Message'] is not None
+			message = data['Message']
+			result = collection.find({'Subject':{'$regex':subject},'Message':{'regex':message}})
+			print(result)
+		else
+			result = collection.find({'Subject':{'$regex':subject})
+			print(result)
+	elif data['Message'] is not none
+		message = data['Message']
+		result = collection.find({'Message':{'$regex':message})
+		print(result)
     if data['Action'] == 'push':
         print("Adding to mongodb")
         data.pop('Action', None)
