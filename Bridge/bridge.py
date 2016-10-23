@@ -98,29 +98,26 @@ try:
         client, address = s.accept()
 
         # blueData is bluetooth data
+        print()
         print("Recieve bluetooth data")
         blueData = client.recv(size)
 
         if blueData:
             #print incoming data for debugging
             print(blueData)
-            print()
 
             # dictionary of the JSON sent through bluetooth
             data = json.loads(blueData.decode())
 
             if data['Action'] == "push":
-                print("This is a push")
                 response = bridgeRPC.call(blueData, "push")
             elif data['Action'] == "pull":
-                print("This is a pull")
                 response = bridgeRPC.call(blueData, "pull")
                 print(response)
-                print()
                 client.send(response)
             else:
                 client.send("Invalid Data Sent")
-
+            print()
         # client.close()
 
 except KeyboardInterrupt:
