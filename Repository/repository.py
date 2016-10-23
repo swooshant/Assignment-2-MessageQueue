@@ -59,7 +59,6 @@ def on_request(ch, method, props, body):
         data.pop('Action', None)
         # Insert the message into the database
         result = collection.insert_one(data)
-        gpio.lightLED(collection.count())
         ch.basic_ack(delivery_tag = method.delivery_tag)
 
 if __name__ == '__main__':
@@ -95,6 +94,7 @@ if __name__ == '__main__':
 
     try:
         while True:
+            gpio.lightLED(collection.count())
             sleep(0.1)
     except KeyboardInterrupt:
         gpio.cleanup()
