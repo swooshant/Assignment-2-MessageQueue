@@ -5,6 +5,7 @@ import pymongo
 import pika
 import socket
 import sys
+import gpio
 from time import sleep
 
 from zeroconf import ServiceInfo, Zeroconf
@@ -54,6 +55,13 @@ def on_request(ch, method, props, body):
         result = collection.insert_one(data)
         ch.basic_ack(delivery_tag = method.delivery_tag)
 if __name__ == '__main__':
+    gpio.initGPIO()
+    client = pymongo.MongoClient('mongodb://localhost:27017/')
+    db = client.repository
+    collection = db.messages
+
+    gpio.lightLED(collection.find.count())
+    
     desc = {'queue_name': 'myQueue'}
     info = ServiceInfo("_amqp._tcp.local.",
                        "rabbitmq._amqp._tcp.local.",
@@ -80,6 +88,7 @@ if __name__ == '__main__':
         while True:
             sleep(0.1)
     except KeyboardInterrupt:
+        gpio.cleanup()
         pass
     finally:
         print("Unregistering...")
