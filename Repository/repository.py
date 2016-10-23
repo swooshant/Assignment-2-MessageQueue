@@ -9,6 +9,11 @@ import gpio
 from time import sleep
 
 from zeroconf import ServiceInfo, Zeroconf
+username = "team16"
+password = "ece4564"
+address = "172.31.68.87"
+port = 5672
+queue_name = "brogrammers"
 
 def on_request(ch, method, props, body):
     client = pymongo.MongoClient('mongodb://localhost:27017/')
@@ -61,12 +66,12 @@ if __name__ == '__main__':
     db = client.repository
     collection = db.messages
 
-    gpio.lightLED(collection.find.count())
+    gpio.lightLED(collection.count())
 
-    desc = {'queue_name': 'myQueue'}
+    desc = {'queue_name': queue_name, 'username': username, 'password': password}
     info = ServiceInfo("_amqp._tcp.local.",
                        "rabbitmq._amqp._tcp.local.",
-                       socket.inet_aton("127.0.0.1"), 5672, 0, 0,
+                       socket.inet_aton(address), port, 0, 0,
                        desc, "rabbitmq-server.local.")
 
     zeroconf = Zeroconf()
