@@ -61,7 +61,7 @@ if __name__ == '__main__':
     db = client.repository
     collection = db.messages
 
-    gpio.lightLED(collection.find.count())
+    gpio.lightLED(collection.count())
 
     desc = {'queue_name': 'myQueue'}
     info = ServiceInfo("_amqp._tcp.local.",
