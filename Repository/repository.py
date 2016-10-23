@@ -95,7 +95,7 @@ if __name__ == '__main__':
     try:
         while True:
             gpio.lightLED(collection.count())
-            sleep(0.1)
+            sleep(2.5)
     except KeyboardInterrupt:
         gpio.cleanup()
         pass
