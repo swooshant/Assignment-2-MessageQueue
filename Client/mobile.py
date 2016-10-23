@@ -63,13 +63,13 @@ def main(opt_args):
     # If the command was a pull, recieve a response from the bridge
     if payload['Action'] == 'pull':
         response = bridgeSocket.recv(size)
-        responseData = json.loads(response)
+        responseData = json.loads(response.decode())
         for item in responseData:
-            for key, value in item.iteritems():
+            for key, value in item.items():
                 print(key, value)
-        bridgeSocket.close()
-    else:
-        bridgeSocket.close()
+            print()    
+    
+    bridgeSocket.close()
         
 if __name__ == "__main__":
     parser = ArgumentParser(description='Parse options for the Message Repository')

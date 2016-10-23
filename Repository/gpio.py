@@ -21,7 +21,6 @@ def cleanup():
 
 def flashRed(numFlash):
     count = 0
-    print("red")
     while (count < numFlash):
         GPIO.output(16, GPIO.HIGH)
         time.sleep(2)
