@@ -11,7 +11,7 @@ from time import sleep
 from zeroconf import ServiceInfo, Zeroconf
 username = "team16"
 password = "ece4564"
-address = "172.31.68.87"
+address = "172.31.61.87"
 port = 5672
 queue_name = "brogrammers"
 
