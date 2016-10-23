@@ -42,12 +42,13 @@ def on_request(ch, method, props, body):
             myResult.append(item)
         print(myResult)
         reply = json.dumps(myResult)
-        ch.basic_ack(delivery_tag = method.delivery_tag)
         ch.basic_publish(exchange='',
                      routing_key=props.reply_to,
                      properties=pika.BasicProperties(correlation_id = \
                                                          props.correlation_id),
                      body=reply)
+        ch.basic_ack(delivery_tag = method.delivery_tag)
+
     if data['Action'] == 'push':
         print("Adding to mongodb")
         data.pop('Action', None)
@@ -61,7 +62,7 @@ if __name__ == '__main__':
     collection = db.messages
 
     gpio.lightLED(collection.find.count())
-    
+
     desc = {'queue_name': 'myQueue'}
     info = ServiceInfo("_amqp._tcp.local.",
                        "rabbitmq._amqp._tcp.local.",
