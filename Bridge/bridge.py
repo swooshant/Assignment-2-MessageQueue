@@ -10,7 +10,7 @@ from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf
 
 
 class BridgeRpcClient(object):
-
+    #constructor
     def __init__(self, address, port, queue_name, username, password):
 
         self.queue_name = queue_name
@@ -18,6 +18,7 @@ class BridgeRpcClient(object):
         #self.credentials = pika.PlainCredentials('team16', 'ece4564')
         #queue_name = 'brogrammers'
 
+        #set the creditials and connection parameters for the message queue
         self.credentials = pika.PlainCredentials(username, password)
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(address,
                                                                             port,
@@ -30,11 +31,12 @@ class BridgeRpcClient(object):
 
         self.channel.basic_consume(self.on_response, no_ack=True,
                                    queue=self.callback_queue)
-
+    #queue callback
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
             self.response = body
 
+    #this is called to push and pull to message queue
     def call(self, blueData, action):
         if action == "pull":
             self.response = None
@@ -66,6 +68,7 @@ s = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM,
 s.bind((hostMACAddress, port))
 s.listen(backlog)
 
+#-------------------------------------------------------------------------------------
 # enable zeroconf
 # zeroconf = Zeroconf()
 # print("\nBrowsing services, press Ctrl-C to exit...\n")
@@ -77,7 +80,9 @@ s.listen(backlog)
 # username =  info.properties['username']
 # password =  info.properties['password']
 # queue_name =  info.properties['queue_name']
+#-------------------------------------------------------------------------------------
 
+#message queue setup
 address = '172.31.61.87'
 port = 5672
 username = 'team16'
@@ -97,7 +102,9 @@ try:
         blueData = client.recv(size)
 
         if blueData:
+            #print incoming data for debugging
             print(blueData)
+            print()
 
             # dictionary of the JSON sent through bluetooth
             data = json.loads(blueData.decode())
@@ -105,11 +112,11 @@ try:
             if data['Action'] == "push":
                 print("This is a push")
                 response = bridgeRPC.call(blueData, "push")
-                print(response)
             elif data['Action'] == "pull":
                 print("This is a pull")
                 response = bridgeRPC.call(blueData, "pull")
                 print(response)
+                print()
                 client.send(response)
             else:
                 client.send("Invalid Data Sent")
