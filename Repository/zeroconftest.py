@@ -12,7 +12,11 @@ from zeroconf import ServiceBrowser, ServiceStateChange, Zeroconf
 if __name__ == '__main__':
     zeroconf = Zeroconf()
     print("\nBrowsing services, press Ctrl-C to exit...\n")
+<<<<<<< HEAD
+    browser = ServiceBrowser(zeroconf, "_amqp._tcp.", handlers=[on_service_state_change])
+=======
     info = zeroconf.get_service_info("_amqp._tcp.local.", "rabbitmq._amqp._tcp.local.")
     print(info)
+>>>>>>> 188f246a2d74a021bfa56e754ab45aa027e555ad
 
     zeroconf.close()
