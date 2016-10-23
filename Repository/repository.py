@@ -14,24 +14,33 @@ def on_request(ch, method, props, body):
     db = client.repository
     collection = db.messages
 
+    myResult = []
+
     print(" [x] Received %r" % body)
     data = json.loads(body.decode())
     print(data)
+
     if data['Action'] == 'pull':
         print("pulling")
-        if data['Subject'] is not None:
+        if 'Subject' in data:
             subject = data['Subject']
-            if data['Message'] is not None:
+            if 'Message' in data:
                 message = data['Message']
+                print("Searching DB")
                 result = collection.find({'Subject':{'$regex':subject},'Message':{'regex':message}})
-                print(result)
             else:
+                print("Searching DB")
                 result = collection.find({'Subject':{'$regex':subject}})
-                print(result)
-        elif data['Message'] is not none:
+        elif 'Message' in data:
             message = data['Message']
+            print("Searching DB")
             result = collection.find({'Message':{'$regex':message}})
-            print(result)
+        print("Sanitizing result")
+        for item in list(result):
+            item.pop('_id', None)
+            myResult.append(item)
+        print(myResult)
+        ch.basic_ack(delivery_tag = method.delivery_tag)
     if data['Action'] == 'push':
         print("Adding to mongodb")
         data.pop('Action', None)
