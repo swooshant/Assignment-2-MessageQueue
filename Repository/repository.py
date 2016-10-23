@@ -29,7 +29,7 @@ def on_request(ch, method, props, body):
         print("pulling")
         if 'Subject' in data and 'Message' in data:
             subject = data['Subject']
-            messsage = data['Message']
+            message = data['Message']
             print("Searching DB")
             result = collection.find({'Subject':{'$regex':subject},'Message':{'$regex':message}})
         elif 'Subject' in data:
