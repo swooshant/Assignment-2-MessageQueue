@@ -1,4 +1,9 @@
-#put code urls here
+#Zeroconf
+#zeroconf https://github.com/jstasiak/python-zeroconf/blob/master/examples/browser.py
+#RabbitMQ RPC
+#https://www.rabbitmq.com/tutorials/tutorial-six-python.html
+#Bluetooth
+#http://blog.kevindoran.co/bluetooth-programming-with-python-3/
 
 import json
 import pika
@@ -50,7 +55,7 @@ class BridgeRpcClient(object):
                                        reply_to=self.callback_queue,
                                        correlation_id=self.corr_id),
                                    body=blueData)
-
+        #break when all the messages are read for pull
         while self.response is None:
             self.connection.process_data_events()
         return self.response

@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+#Zeroconf
+#zeroconf https://github.com/jstasiak/python-zeroconf/blob/master/examples/browser.py
+#RabbitMQ RPC
+#https://www.rabbitmq.com/tutorials/tutorial-six-python.html
+#Bluetooth
+#http://blog.kevindoran.co/bluetooth-programming-with-python-3/
 
 import json
 import pymongo
