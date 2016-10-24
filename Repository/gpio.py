@@ -2,6 +2,7 @@
 import RPi.GPIO as GPIO
 import time
 import sys
+import math
 
 
 def initGPIO():
@@ -71,20 +72,23 @@ def lightLED(messCount):
     # if there are less than 100 messages        
     if(messCount > 99):
         # find the digit in the hundreds place
-        hundreds = messCount % 100
+        hundreds = messCount // 100
         # update message count
         messCount = messCount - (hundreds * 100)
         # call the red flash function
         flashRed(hundreds)
+
     # if there are less than 10 messages
     # in the updated message count
     if(messCount > 9):
         # find the tens digit
-        tenths = messCount % 10
+        if(messCount > )
+        tenths = messCount // 10
         #update message count
         messCount = messCount - (tenths * 10)
         # flash green
-        flashGreen(tenths)
+        flashGreen(hundreds)
+
     # flash blue with the rest
     flashBlue(messCount)
     return
