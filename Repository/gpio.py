@@ -86,7 +86,7 @@ def lightLED(messCount):
         #update message count
         messCount = messCount - (tenths * 10)
         # flash green
-        flashGreen(hundreds)
+        flashGreen(tenths)
 
     # flash blue with the rest
     flashBlue(messCount)
