@@ -82,7 +82,6 @@ def lightLED(messCount):
     # in the updated message count
     if(messCount > 9):
         # find the tens digit
-        if(messCount > )
         tenths = messCount // 10
         #update message count
         messCount = messCount - (tenths * 10)
