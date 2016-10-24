@@ -28,10 +28,10 @@ def flashRed(numFlash):
     while (count < numFlash):
         #output the red for half a second
         GPIO.output(16, GPIO.HIGH)
-        time.sleep(.5)
+        time.sleep(.7)
         #sleep for a tenth of a second
         GPIO.output(16, GPIO.LOW)
-        time.sleep(.1)
+        time.sleep(.3)
         #increment
         count += 1
     return
@@ -43,10 +43,10 @@ def flashGreen(numFlash):
     while (count < numFlash):
         #output the green for half a second
         GPIO.output(20, GPIO.HIGH)
-        time.sleep(.5)
+        time.sleep(.7)
         #sleep for a tenth of a second
         GPIO.output(20, GPIO.LOW)
-        time.sleep(.1)
+        time.sleep(.3)
         #increment
         count += 1
     return
@@ -58,10 +58,10 @@ def flashBlue(numFlash):
     while (count < numFlash):
         #output the blue for half a second
         GPIO.output(21, GPIO.HIGH)
-        time.sleep(.5)
+        time.sleep(.7)
         #sleep for a tenth of a second
         GPIO.output(21, GPIO.LOW)
-        time.sleep(.1)
+        time.sleep(.3)
         #increment
         count += 1
     return
